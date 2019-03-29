@@ -16,7 +16,7 @@ public class Fibonacci {
     }
 
     //with memoization
-    public int getNumberWithMemo(int n, int[] memo) {
+    public int fibonacciTopDownWithMemo(int n, int[] memo) {
 
         if(n==0) {
             return 0;
@@ -33,14 +33,38 @@ public class Fibonacci {
     }
 
 
+    public int fibonacciBottomUpWithMemo(int n) {
+
+        if(n==0)
+            return 0;
+        if(n==1)
+            return 1;
+
+        int[] memo = new int[n+1];
+        memo[0]=0;
+        memo[1]=1;
+
+        for(int i=2;i<=n;i++) {
+            memo[i] = memo[i-1] + memo[i-2];
+        }
+
+        return memo[n];
+
+    }
+
+
 
     public static void main(String[] args) {
 
         Fibonacci fibonacci = new Fibonacci();
         int[] memo = new int[20];
 
+//        for(int i=0;i<20;i++) {
+//            System.out.println(fibonacci.fibonacciTopDownWithMemo(i,memo));
+//        }
+
         for(int i=0;i<20;i++) {
-            System.out.println(fibonacci.getNumberWithMemo(i,memo));
+            System.out.println(fibonacci.fibonacciBottomUpWithMemo(i));
         }
 
     }

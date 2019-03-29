@@ -16,7 +16,8 @@ public class PermutationsOfAString {
             return listOfResults;
         }
 
-        for (int i = 0; i < str.length(); i++) {
+        int count=0;
+        while(count<str.length()) {
             char beg = str.charAt(0);
             String remainingString = str.substring(1);
             List<String> subStringPermutations = getPermutations(remainingString);
@@ -24,7 +25,8 @@ public class PermutationsOfAString {
                 listOfResults.add(beg + word);
             }
 
-            str = remainingString + beg;//rotate string
+            str = remainingString + beg;//rotate string p(abc) + p(bca) + p(cab)
+            count++;
         }
 
         return listOfResults;
@@ -35,6 +37,6 @@ public class PermutationsOfAString {
 
         PermutationsOfAString permutationsOfAString = new PermutationsOfAString();
 
-        System.out.println(permutationsOfAString.getPermutations("abc"));
+        System.out.println(permutationsOfAString.getPermutations("abca"));
     }
 }
