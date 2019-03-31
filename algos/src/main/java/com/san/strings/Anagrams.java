@@ -16,17 +16,30 @@ public class Anagrams {
     }
 
     public boolean isAnagramWithoutSort(String word1, String word2) {
-        char[] word1CharArray = word1.toCharArray();
-        StringBuilder stringBuilderForWord2 = new StringBuilder(word2);
 
-        for (char ch : word1CharArray) {
-            int index = stringBuilderForWord2.indexOf(String.valueOf(ch));
-            if (index != -1) {
-                stringBuilderForWord2.deleteCharAt(index);
-            }
+        if(word1.length()!=word2.length())
+            return false;
+
+        char[] word1CharArr = word1.toCharArray();
+        char[] word2CharArr = word2.toCharArray();
+        int[] word1CharFrequency = new int[256]; //Assuming all ascii
+        int[] word2CharFrequency = new int[256];
+
+        for(int i=0;i<word1.length();i++) {
+            int char1AsciiValue = (int)word1CharArr[i];
+            word1CharFrequency[char1AsciiValue] = word1CharFrequency[char1AsciiValue]+1;
+
+            int char2AsciiValue = (int)word2CharArr[i];
+            word2CharFrequency[char2AsciiValue] = word2CharFrequency[char2AsciiValue]+1;
         }
 
-        return stringBuilderForWord2.length() == 0;
+        return Arrays.equals(word1CharFrequency,word2CharFrequency);
+    }
+
+
+    public static void main(String[] args) {
+        Anagrams anagrams = new Anagrams();
+        System.out.println(anagrams.isAnagramWithoutSort("dos","god"));
     }
 
 }
