@@ -4,6 +4,27 @@ import java.util.*;
 
 public class WordCountByDescending {
 
+    public Map<Integer,Set<String>> getWordCountByDescending(String strings) {
+
+        Map<String,Integer> wordCountMap = new HashMap<>();
+        Map<Integer,Set<String>> descendingCountMap = new TreeMap<>();
+
+        for(String str : strings.split(" ")) {
+            int count = wordCountMap.getOrDefault(str,0);
+            Set<String> stringSet = descendingCountMap.getOrDefault(count,new HashSet<>());
+            stringSet.remove(str);
+
+            count++;
+            wordCountMap.put(str,count);
+            stringSet = descendingCountMap.getOrDefault(count,new HashSet<>());
+            stringSet.add(str);
+            descendingCountMap.put(count,stringSet);
+        }
+
+
+        return descendingCountMap;
+    }
+
     public HashMap<String,Integer> getWordCount(String strings) {
 
         HashMap<String,Integer> wordCountMap = new HashMap<>();
@@ -41,7 +62,7 @@ public class WordCountByDescending {
         WordCountByDescending wordCountByDescending = new WordCountByDescending();
 
         System.out.println(
-        wordCountByDescending.getWordCount("san ban can tan man pan ban tan")
+        wordCountByDescending.getWordCountByDescending("san ban can tan man pan ban tan")
         );
     }
 
