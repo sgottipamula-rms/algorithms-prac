@@ -12,21 +12,21 @@ public class ThreeMethodExecution {
     public void first() {
         synchronized (lockObject1) {
             System.out.println("first");
-            lockObject1.notify();
         }
     }
 
     public void second() {
         synchronized (lockObject1) {
-            System.out.println("second");
-            lockObject2.notify();
+            synchronized (lockObject2) {
+                System.out.println("second");
+            }
         }
     }
 
     public void third() {
-//        synchronized (lockObject) {
-//            System.out.println("third");
-//            lockObject.notify();
+        synchronized (lockObject2) {
+            System.out.println("three");
+        }
 
     }
 
@@ -38,7 +38,7 @@ public class ThreeMethodExecution {
             ExecutorService executorService = Executors.newFixedThreadPool(3);
             f1 = executorService.submit(() -> first());
             f2 = executorService.submit(() -> second());
-            f3 = executorService.submit(() -> first());
+            f3 = executorService.submit(() -> third());
             executorService.shutdown();
         } while(f1.isDone()&&f2.isDone()&&f3.isDone());
     }
@@ -49,7 +49,7 @@ public class ThreeMethodExecution {
         new ThreeMethodExecution().runMyThreads();
 
 
-        Thread.sleep(2000);
+        Thread.sleep(5000);
     }
 
 }

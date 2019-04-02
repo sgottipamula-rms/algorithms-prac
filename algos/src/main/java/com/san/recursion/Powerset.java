@@ -4,7 +4,11 @@ import java.util.*;
 
 public class Powerset {
 
-    public Set<Set<Integer>> getPowerSets(Set<Integer> originalSet) {
+    //{}  = {}
+    //{1}  = {},{1}
+    //{1,2} = {}{1}{2}{1,2}...so basically powerset(1)+{head in powerset(1)}
+
+    public Set<Set<Integer>> getPowerSets(List<Integer> originalSet) {
         Set<Set<Integer>> powerSet = new HashSet();
 
         if (originalSet.isEmpty()) {
@@ -12,18 +16,18 @@ public class Powerset {
             return powerSet;
         }
 
-        List<Integer> listOfOriginalSet = new ArrayList(originalSet);
-        Integer head = listOfOriginalSet.get(0);
-        Set<Set<Integer>> remainingPowerSets = getPowerSets(new HashSet<>(listOfOriginalSet.subList(1, listOfOriginalSet.size())));
 
-        for (Set<Integer> remainingSet : remainingPowerSets) {
-            //add remaining sets
-            powerSet.add(remainingSet);
+        Integer head = originalSet.get(0);
+        Set<Set<Integer>> subPowerSets = getPowerSets(originalSet.subList(1, originalSet.size()));
 
-            //add remaining sets combined with head
+        for (Set<Integer> subPowerSet : subPowerSets) {
+            //my subpower sets are part of my powerset too
+            powerSet.add(subPowerSet);
+
+            //my head + my subpowersets are my actual powerset
             Set<Integer> temp = new HashSet<>();
             temp.add(head);
-            temp.addAll(remainingSet);
+            temp.addAll(subPowerSet);
             powerSet.add(temp);
 
         }
@@ -34,6 +38,6 @@ public class Powerset {
     public static void main(String[] args) {
         Powerset powerset = new Powerset();
 
-        System.out.println(powerset.getPowerSets(new HashSet<Integer>(Arrays.asList(1,2,3))));
+        System.out.println(powerset.getPowerSets(Arrays.asList(1,2,3)));
     }
 }

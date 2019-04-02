@@ -8,16 +8,16 @@ public class StepProblem {
 //            n=1
 //            1
 //
-//    n=2
+//    n=2, tot=2
 //            1,1
 //            2
 //
-//    n=3
+//    n=3, tot=3
 //            1,1,1
 //            2,1
 //            1,2
 //
-//    n=4 —> n(2)+2, n(3)+1     so total 5 ways
+//    n=4 —> n(2)+2, n(3)+1     so tot=5 ways
 //1,1,2
 //        2,2,&
 //        1,1,1,1
@@ -25,8 +25,9 @@ public class StepProblem {
 //        1,2,1
 //
 //
-//    n=5  == n(3)+2  and n(4)+1  total 8 ways
+//    n=5  == n(3)+2  and n(4)+1  tot=8 ways
 //
+    //0,1,2,3,5,8,..
 //    f(0) = 0
 //    f(1) = 1
 //    f(2) = 2

@@ -15,12 +15,12 @@ public class RecursiveMultiply {
         boolean hasNegatives = false;
 
         if(x<0) {
-            x=(~x)+1;
+            x=(~x)+1; //turn it in to positive
             hasNegatives=!hasNegatives;
         }
 
         if(y<0) {
-            y=(~y)+1;
+            y=(~y)+1; //turn in to positive
             hasNegatives=!hasNegatives;
         }
 

@@ -5,38 +5,41 @@ import java.util.List;
 
 public class PermutationsOfAString {
 
+    //P(B)=B
+    //P(AB)=A+P(B) + P(rotateAB=BA)
+    ///                 P(BA) = B+P(A)    ==== AB, BA
+    //
+    //P(ABC) = A+P(BC), B+P(AC), C+P(AB)
     public List<String> getPermutations(String str) {
-        List<String> listOfResults = new ArrayList();
+        List<String> permutations = new ArrayList<>();
 
-        if (str == null)
-            return null;
-
-        if (str.length() == 0) {
-            listOfResults.add("");
-            return listOfResults;
+        if(str.length()==1) {
+            permutations.add(str.charAt(0)+"");
+            return permutations;
         }
 
-        int count=0;
-        while(count<str.length()) {
-            char beg = str.charAt(0);
+        int charCount = 0;
+        while(charCount<str.length()) {
+            Character head = str.charAt(0);
             String remainingString = str.substring(1);
-            List<String> subStringPermutations = getPermutations(remainingString);
-            for (String word : subStringPermutations) {
-                listOfResults.add(beg + word);
+            List<String> subPermutations = getPermutations(remainingString);
+
+            for (String subPermutation : subPermutations) {
+                permutations.add(head + subPermutation);
             }
 
-            str = remainingString + beg;//rotate string p(abc) + p(bca) + p(cab)
-            count++;
+            str = remainingString + head;
+            charCount++;
         }
 
-        return listOfResults;
-    }
+        return permutations;
 
+    }
 
     public static void main(String[] args) {
 
         PermutationsOfAString permutationsOfAString = new PermutationsOfAString();
 
-        System.out.println(permutationsOfAString.getPermutations("abca"));
+        System.out.println(permutationsOfAString.getPermutations("abc"));
     }
 }

@@ -28,12 +28,8 @@ public class Philosopher implements Runnable{
 
                 //eat
                 // mod 5 is because philosopher 4 uses f4 & f0 which is (4+1)%5
-
-                Integer f1=id;
-                Integer f2=(id+1)%5;
-
-//                Integer f1 = Math.min(id, (id + 1) % 5);
-//                Integer f2 = Math.max(id, (id + 1) % 5);
+                Integer f1 = Math.min(id, (id + 1) % 5);
+                Integer f2 = Math.max(id, (id + 1) % 5);
 
                 synchronized (f1) {
                     synchronized (f2) {
