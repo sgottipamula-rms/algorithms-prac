@@ -11,14 +11,14 @@ public class WordCountByDescending {
 
         for(String str : strings.split(" ")) {
             int count = cache.getOrDefault(str,0);
-            Set<String> stringSet = reverseCache.getOrDefault(count,new HashSet<>());
-            stringSet.remove(str);
+            cache.put(str,++count);
+        }
 
-            count++;
-            cache.put(str,count);
-            stringSet = reverseCache.getOrDefault(count,new HashSet<>());
-            stringSet.add(str);
-            reverseCache.put(count,stringSet);
+        for(Map.Entry<String,Integer> entry : cache.entrySet()) {
+
+            Set<String> set = reverseCache.getOrDefault(entry.getValue(), new HashSet<>());
+            set.add(entry.getKey());
+            reverseCache.put(entry.getValue(), set);
         }
 
 

@@ -7,19 +7,19 @@ public class PermutationsOfAString {
 
     //P(B)=B
     //P(AB)=A+P(B) + P(rotateAB=BA)
-    ///                 P(BA) = B+P(A)    ==== AB, BA
+    ///                 P(BA) = B+P(A)    ==== AB, BA (2 rotations for 2charstring)
     //
-    //P(ABC) = A+P(BC), B+P(AC), C+P(AB)
+    //P(ABC) = A+P(BC), B+P(AC), C+P(AB) (3rotations for 3 char string)
     public List<String> getPermutations(String str) {
         List<String> permutations = new ArrayList<>();
 
         if(str.length()==1) {
-            permutations.add(str.charAt(0)+"");
+            permutations.add(str);
             return permutations;
         }
 
-        int charCount = 0;
-        while(charCount<str.length()) {
+        int rotations = str.length();
+        while(rotations>0) {
             Character head = str.charAt(0);
             String remainingString = str.substring(1);
             List<String> subPermutations = getPermutations(remainingString);
@@ -29,7 +29,7 @@ public class PermutationsOfAString {
             }
 
             str = remainingString + head;
-            charCount++;
+            rotations--;
         }
 
         return permutations;
