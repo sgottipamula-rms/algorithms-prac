@@ -13,15 +13,14 @@ public class BalancedTreeTest {
         Integer depth;
     }
 
-    public boolean checkIfBalanced(Node node, BalancedCheck previousCheck) {
+    public boolean checkIfBalanced(Node node, int minmin, int maxmin, int minmax, int maxmax) {
 
-        if(previousCheck!=null) {
+        if(node==null)
+            return true;
 
-        } else {
-            if(!previousCheck.IsBalanced)
-                return false;
-        }
+        //if(maxmin<node.val<=maxmin)
 
         return false;
+
     }
 }

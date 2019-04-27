@@ -1,52 +1,50 @@
 package com.san.sorting;
 
+import java.util.Arrays;
+
 public class QuickSort {
 
     public void sort(int[] arr, int start, int end) {
 
         if(start<end) {
-            int partition = partition(arr,start,end);
-            sort(arr,start,partition-1);
-            sort(arr,partition+1,end);
+            int partitionIndex = partition(arr,start,end);
+            sort(arr,start,partitionIndex-1);
+            sort(arr,partitionIndex+1,end);
         }
     }
 
     private int partition(int[] arr, int start, int end) {
 
-        int pivot=start;
-        int pivotvalue = arr[pivot];
+        int pivot = arr[start];
 
-        int low=start+1;
-        int high=end-1;
-
-        while(low<high) {
-
-            while(arr[low]<=pivotvalue)
-                low++;
-
-            while(arr[high]>pivotvalue)
-                high--;
-
-            if(low<high) {
-                int temp = arr[low];
-                arr[low] = arr[high];
-                arr[high] = temp;
+        while(start<end) {
+            while(arr[start]<pivot) {
+                start++;
             }
+
+            while(arr[end]>pivot) {
+                end--;
+            }
+
+            if(start<end)
+                swap(arr, start, end);
         }
 
-        //at this point low is one value above pivot and high has value less than pivot
-        //so swap pivot value with high
-        int temp = arr[pivot];
-        arr[pivot] = arr[high];
-        arr[high] = temp;
+        swap(arr, start, end);
 
-        return high;
+        return end;
+    }
+
+    private void swap(int[] arr, int x, int y) {
+        int temp = arr[x];
+        arr[x] = arr[y];
+        arr[y] = temp;
     }
 
     public static void main(String[] args) {
         int[] arr = new int[]{6,7,8,9,1,2,3,5,4};
         new QuickSort().sort(arr,0,8);
-        System.out.println(arr);
+        System.out.println(Arrays.toString(arr));
     }
 
 }
